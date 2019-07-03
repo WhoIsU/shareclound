@@ -17,8 +17,8 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserLoginServiceIMPL userLoginServiceIMPL;
-    @Autowired
-    private UserInfoServiceIMPL userInfoServiceIMPL;
+    //@Autowired
+    //private UserInfoServiceIMPL userInfoServiceIMPL;
 
     @RequestMapping("/login")//false为假，true为真
     public boolean login(Integer id, String password) {
@@ -38,16 +38,13 @@ public class UserController {
 
 
     @RequestMapping("/deleteuserinfo")
-    public String delete(Integer id){
-        boolean flag=false;
-        flag=userInfoServiceIMPL.deleteUserInfoByID(id);
-        if (flag==false)
-        {
-            return "删除失败";
-        }
-        else {
-            return "删除成功";
-        }
+    public String delete(int id){
+
+        UserInfoServiceIMPL userInfoServiceIMPL=new UserInfoServiceIMPL();
+        //System.out.println(id);
+        userInfoServiceIMPL.deleteUserInfoByID(id);
+
+        return "删除完成";
     }
 
 }

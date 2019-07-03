@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @EnableAutoConfiguration
 public class HelloController {
     @Autowired
-    public UserLoginMapper userLoginMapper;
+    private UserLoginMapper userLoginMapper;
     @PostMapping("/hello")
     public String hello(Integer id,String password){
         UserLogin u=null;

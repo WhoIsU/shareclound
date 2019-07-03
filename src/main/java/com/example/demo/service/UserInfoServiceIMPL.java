@@ -11,11 +11,18 @@ public class UserInfoServiceIMPL  {
     @Autowired
     private UserInfoMapper userInfoMapper;
 
-    public boolean deleteUserInfoByID(Integer id){
+    public boolean deleteUserInfoByID(int id){
         boolean flag=false;
+        UserInfoExample userInfoExample=new UserInfoExample();
+        UserInfoExample.Criteria criteria=userInfoExample.createCriteria();
+
+        criteria.andUserIdEqualTo(id);
+
+        userInfoMapper.deleteByExample(userInfoExample);
+        //int result=userInfoMapper.deleteByPrimaryKey(1);
+        System.out.println("删除完成");
         try{
-            int result=userInfoMapper.deleteByPrimaryKey(id);
-            System.out.println(result);
+
             flag=true;
             return flag;
         }

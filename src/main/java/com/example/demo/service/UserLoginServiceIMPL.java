@@ -22,7 +22,7 @@ public class UserLoginServiceIMPL  {
   //返回值为FLASE为假，true为真
 
     public Boolean login(UserLogin user){
-        userLoginMapper.selectByPrimaryKey(1);
+        userLoginMapper.selectByPrimaryKey(user.getUserId());
         Boolean flag=false;
         UserLogin userLogin=null;
        userLogin=userLoginMapper.selectByPrimaryKey(user.getUserId());

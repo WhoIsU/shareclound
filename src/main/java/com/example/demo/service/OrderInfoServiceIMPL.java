@@ -15,14 +15,9 @@ import java.math.BigDecimal;
 public class OrderInfoServiceIMPL {
     @Autowired
     private OrderInfoMapper orderInfoMapper;
-    @Autowired
-    private UserInfoServiceIMPL userInfoServiceIMPL;
-    @Autowired
-    private ShopCartServiceIMPL shopCartServiceIMPL;
-    @Autowired
-    private ShopCart shopCart;
-    @Autowired
-    private GoodsDetailServiceIMPL goodsDetailServiceIMPL;
+
+
+
 
     //直接更新orderInfo
     public void updateOrderInfo(OrderInfo orderInfo){
@@ -38,13 +33,15 @@ public class OrderInfoServiceIMPL {
             //检测是否有库存
             GoodsDetail goodsDetail=new GoodsDetail();
             goodsDetail.setGoodsDetaiId(orderInfo.getGoodsDetailId());
+            GoodsDetailServiceIMPL goodsDetailServiceIMPL=new GoodsDetailServiceIMPL();
             List<GoodsDetail> rs= goodsDetailServiceIMPL.findWhateverYouWant(goodsDetail);
             GoodsDetail tmp=rs.get(0);
             if(tmp.getStock()<=0){
                 return false;
             }
 
-            //计算会员优惠--- 1级0-200 9折，2级200-400 8折，3级400+ 7折
+            //计算会员优惠--- 1级0-200 9折，2级200-400 8折，3级400+
+            UserInfoServiceIMPL userInfoServiceIMPL=new UserInfoServiceIMPL();
             int level=userInfoServiceIMPL.selectUserInfo(orderInfo.getUserId()).getUserLevel();
             double discount=1;
             if(level<200){discount=0.9;}
@@ -55,8 +52,10 @@ public class OrderInfoServiceIMPL {
             //更新积分--不做了
 
             //删除购物车里的同id商品
+            ShopCart shopCart=new ShopCart();
             shopCart.setUserId(orderInfo.getUserId());
             shopCart.setGoodsDetailId(orderInfo.getGoodsDetailId());
+            ShopCartServiceIMPL shopCartServiceIMPL=new ShopCartServiceIMPL();
             shopCartServiceIMPL.deleteShopCardByBothID(shopCart);;
 
             //添加订单
