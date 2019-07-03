@@ -16,9 +16,6 @@ public class OrderInfoServiceIMPL {
     @Autowired
     private OrderInfoMapper orderInfoMapper;
 
-
-
-
     //直接更新orderInfo
     public void updateOrderInfo(OrderInfo orderInfo){
         orderInfoMapper.updateByPrimaryKey(orderInfo);

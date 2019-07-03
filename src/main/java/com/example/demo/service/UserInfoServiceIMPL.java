@@ -4,22 +4,25 @@ import com.example.demo.entity.UserInfo;
 import com.example.demo.entity.UserInfoExample;
 import com.example.demo.mapper.UserInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class UserInfoServiceIMPL  {
     @Autowired
     private UserInfoMapper userInfoMapper;
 
     public boolean deleteUserInfoByID(int id){
         boolean flag=false;
-        UserInfoExample userInfoExample=new UserInfoExample();
+       UserInfoExample userInfoExample=new UserInfoExample();
         UserInfoExample.Criteria criteria=userInfoExample.createCriteria();
 
         criteria.andUserIdEqualTo(id);
 
+
         userInfoMapper.deleteByExample(userInfoExample);
-        //int result=userInfoMapper.deleteByPrimaryKey(1);
+        //userInfoMapper.selectByPrimaryKey(1);
+        //userInfoMapper.deleteByPrimaryKey(1);
         System.out.println("删除完成");
         try{
 

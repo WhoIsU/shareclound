@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.UserInfo;
 import com.example.demo.entity.UserLogin;
 import com.example.demo.entity.UserLoginExample;
 import com.example.demo.mapper.UserLoginMapper;
@@ -17,8 +18,8 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserLoginServiceIMPL userLoginServiceIMPL;
-    //@Autowired
-    //private UserInfoServiceIMPL userInfoServiceIMPL;
+    @Autowired
+    private UserInfoServiceIMPL userInfoServiceIMPL;
 
     @RequestMapping("/login")//false为假，true为真
     public boolean login(Integer id, String password) {
@@ -31,20 +32,21 @@ public class UserController {
         return userLoginServiceIMPL.login(userLogin);
     }
 
-    @RequestMapping("/findall")
-    public List<UserLogin> findall(){
-        return userLoginServiceIMPL.findAllUserLogin();
+    @RequestMapping("/findall/userinfo")
+    public List<UserInfo> findall(){
+        return userInfoServiceIMPL.findAllUserInfo();
     }
 
 
-    @RequestMapping("/deleteuserinfo")
-    public String delete(int id){
+    @RequestMapping("/del")
+    public List<UserInfo> del(int id){
 
         UserInfoServiceIMPL userInfoServiceIMPL=new UserInfoServiceIMPL();
         //System.out.println(id);
         userInfoServiceIMPL.deleteUserInfoByID(id);
+        return null;
 
-        return "删除完成";
+
     }
 
 }

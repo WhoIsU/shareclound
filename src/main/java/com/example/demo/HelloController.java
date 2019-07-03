@@ -1,7 +1,10 @@
 package com.example.demo;
 
+import com.example.demo.entity.UserInfo;
 import com.example.demo.entity.UserLogin;
 import com.example.demo.mapper.UserLoginMapper;
+import com.example.demo.service.UserInfoServiceIMPL;
+import com.example.demo.service.UserLoginServiceIMPL;
 import io.swagger.models.auth.In;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +20,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
     @Autowired
     private UserLoginMapper userLoginMapper;
+    @Autowired
+    private UserLoginServiceIMPL userLoginServiceIMPL;
+    @Autowired
+    private UserInfoServiceIMPL userInfoServiceIMPL;
     @PostMapping("/hello")
-    public String hello(Integer id,String password){
-        UserLogin u=null;
+    public UserInfo hello(Integer id, String password){
+        UserLogin u=new UserLogin();
         u.setUserId(id);
         u.setUserPassword(password);
 
 
         Integer j=10;
-//        us.login(u );
-        userLoginMapper.selectByPrimaryKey(id);
-        return "hello";
+        return  userInfoServiceIMPL.selectUserInfo(id);
+
+        //return userLoginMapper.selectByPrimaryKey(id);
+
     }
 
 
